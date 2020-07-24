@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const _ = require("lodash");
 
 const homeStartingContent = "Welcome Everyone , My name is Danish Ranjan| I have gained a mix of industrial and research experience: both of which, I feel a CS enthusiast must explore, for the latter is incomplete without the former. My internships at American Express, Microsoft, IBM-Research, and MIDAS@IIITD have helped me polish my software engineering skills while cultivating a research mindset.I have been particularly interested in Natural Language Processing and Human-Computer Interaction. And apart from this techy part, I am a Story Writer | District level athletes | Love to click precious moment| A psycho Extrovert | Vocalist ";
 const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
@@ -51,13 +52,16 @@ app.post("/compose", function (req, res) {
 });
 
 app.get("/posts/:postName", function(req,res){
-  const requestedTitle = req.params.postName;
+  const requestedTitle = _.lowerCase(req.params.postName);
 
   posts.forEach(function(post){
-    const storedTitle = post.title;
+    const storedTitle = _.lowerCase(post.title);
 
     if(storedTitle === requestedTitle){
       console.log("Match Found!");
+    }
+    else{
+      console.log("Not a match");
     }
   });
 
